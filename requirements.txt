@@ -1,2 +1,2 @@
 pytest==7.4.0
-python-sonar-client==0.6.0
+sonarqube-api==0.6.0
