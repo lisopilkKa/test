@@ -30,7 +30,12 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1.9
         with:
-          projectBaseDir: .
+          args: >
+            -Dsonar.projectKey=lisopilkKa_test
+            -Dsonar.organization=lisopilkka
+            -Dsonar.sources=src
+            -Dsonar.tests=tests
+            -Dsonar.python.coverage.reportPaths=coverage.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_PROJECT_KEY: lisopilkKa_test
