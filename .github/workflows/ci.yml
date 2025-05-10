@@ -1,24 +1,19 @@
-name: CI Pipeline
-on: [push, pull_request]
-
+name: Build
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  sonarqube:
+    name: SonarQube
+    runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
         with:
-          python-version: '3.10'
-      - run: pip install -r requirements.txt
-      - run: pytest tests/ --junitxml=test-results.xml
-
-  sonar-analysis:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up SonarQube Scanner
-        uses: SonarSource/sonarqube-scan-action@master
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}  # Наприклад, https://sonarcloud.io
