@@ -10,7 +10,7 @@ on:
 jobs:
   analysis:
     name: Code Quality Checks
-    runs-on: windows-latest
+    runs-on: ubuntu-latest  # <--- важливо
     steps:
       - uses: actions/checkout@v4
         with:
